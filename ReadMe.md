@@ -25,7 +25,7 @@ OFFICIAL REVENUE SCOTLAND WEBSITE:
 https://revenue.scot/taxes/land-buildings-transaction-tax
 
 Information on LBTT with specification:
-- Going to be a residential property - used or suitable as a dwelling or adapted for use as a dwelling (for now focus on that, work on Additional Dwelling Supplement later) 
+- Going to be a residential property - used or suitable as a dwelling or adapted for use as a dwelling (for now focus on that, work on Additional Dwelling Supplement later) Extra - ADS does not apply in this example as buyer sells their first home on the same day as buying their second home.
 - Purchase prices and LBTT RATE: 
 Purchase price | LBTT rate
  Up to £145,000	| 0%
