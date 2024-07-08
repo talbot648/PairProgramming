@@ -1,6 +1,6 @@
 *LBTT TASK*
 
-Context: Buying a house in UK incurs a tax which varies due to price of the house and buyer circumstances. EG: higher rate for buying second home.
+Context: Buying a house in Scotland incurs a tax which varies due to price of the house and buyer circumstances. EG: higher rate for buying second home.
 
 Write a piece of code which given the price of a house will calculate LBBT due to be paid.
 
@@ -40,4 +40,6 @@ Purchase price | LBTT rate
 £250,001 - £325k | £75k x 5% = £3750
 £325,001 - £400k | £75k x 10% = £7500
 Total LBTT = £13,350 
+
+Plan: 
 
