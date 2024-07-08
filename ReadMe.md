@@ -1,4 +1,4 @@
-*LBBT TASK*
+*LBTT TASK*
 
 Context: Buying a house in UK incurs a tax which varies due to price of the house and buyer circumstances. EG: higher rate for buying second home.
 
@@ -23,3 +23,21 @@ TIPS:
 OFFICIAL REVENUE SCOTLAND WEBSITE:
 
 https://revenue.scot/taxes/land-buildings-transaction-tax
+
+Information on LBTT with specification:
+- Going to be a residential property - used or suitable as a dwelling or adapted for use as a dwelling (for now focus on that, work on Additional Dwelling Supplement later) 
+- Purchase prices and LBTT RATE: 
+Purchase price | LBTT rate
+ Up to £145,000	| 0%
+ £145,001 to £250,000	| 2%
+ £250,001 to £325,000	| 5%
+ £325,001 to £750,000	| 10%
+ Over £750,000	| 12%
+
+ - Calculate the tax per band - Example of £400k house being calculated:
+£0 - £145k x 0% = £0
+£145,001 - £250k | £105k x 2% = £2100
+£250,001 - £325k | £75k x 5% = £3750
+£325,001 - £400k | £75k x 10% = £7500
+Total LBTT = £13,350 
+
