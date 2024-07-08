@@ -14,8 +14,12 @@ Expectations:
 - Compile without error
 - Have runnable Unit test
 - Have those Unit tests pass
-- 
+
 TIPS: 
 - keep functionality as simple as possible
 - Doesn't need to cover all possible scenarios yet: if it is based off of one price range then this needs to be covered in tests
 - Don't move far beyond the minimum
+
+OFFICIAL REVENUE SCOTLAND WEBSITE:
+
+https://revenue.scot/taxes/land-buildings-transaction-tax
