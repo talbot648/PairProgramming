@@ -47,5 +47,10 @@ calculate the difference from minimum house price in current tax band to the inp
 calculate the percentage tax based on that difference
 if the house price is above a certain tax band, add the maxium amount of tax in that band EG: £250k and over - 2% tax band always = £2100
 total the amount from each tax band and return the amount
+Add error handling if input is empty
+report error if input is invalid
+report error if input is below £0
+
+
 
 
