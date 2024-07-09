@@ -16,7 +16,7 @@ func TestReportsErrorWhenGivenInputBelowZero(t *testing.T) {
 	}
 }
 
-func TestCalculatesZeroTaxForFirstBracket(t *testing.T) {
+func TestCalculatesZeroTaxForBelowFirsTaxBand(t *testing.T) {
 	givenPrice := 145000
 
 	want := 0
@@ -42,10 +42,10 @@ func TestCalculatesFirstTaxBand(t *testing.T) {
 	}
 }
 
-func TestCalculatesFirstTaxBandUpper(t *testing.T) {
-		givenPrice := 24950
+func TestCalculatesFirstTaxBandUpperEdgeCase(t *testing.T) {
+	givenPrice := 250000
 
-	want := 2090
+	want := 2100
 
 	got, _ := CalculateLBTT(givenPrice)
 
