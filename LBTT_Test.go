@@ -30,3 +30,14 @@ func TestCalculatesZeroTaxForFirstBracket(t *testing.T) {
 	}
 
 }
+
+func TestCalculatesFirstTaxBracket(t *testing.T) {
+	givenPrice := 200000
+
+	want := 1100
+	got, _ := CalculateLBTT(givenPrice)
+
+	if got != want {
+		t.Errorf("got %v, expected %v", got, want)
+	}
+}
