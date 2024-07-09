@@ -42,4 +42,10 @@ Purchase price | LBTT rate
 Total LBTT = £13,350 
 
 Plan: 
+Take user input of the houe price they are buying
+calculate the difference from minimum house price in current tax band to the inputted house price
+calculate the percentage tax based on that difference
+if the house price is above a certain tax band, add the maxium amount of tax in that band EG: £250k and over - 2% tax band always = £2100
+total the amount from each tax band and return the amount
+
 
