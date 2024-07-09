@@ -31,7 +31,7 @@ func TestCalculatesZeroTaxForFirstBracket(t *testing.T) {
 
 }
 
-func TestCalculatesFirstTaxBracket(t *testing.T) {
+func TestCalculatesFirstTaxBand(t *testing.T) {
 	givenPrice := 200000
 
 	want := 1100
