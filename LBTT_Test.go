@@ -15,3 +15,18 @@ func TestReportsErrorWhenGivenInputBelowZero(t *testing.T) {
 		t.Error("expected error when given a house price below zero pounds")
 	}
 }
+
+func TestCalculatesZeroTaxForFirstBracket(t *testing.T) {
+	givenPrice := 145000
+
+	want := 0
+	got, gotErr := CalculateLBTT(givenPrice)
+
+	if gotErr != nil {
+		t.Error("unexpected error:", gotErr)
+	}
+	if got != want {
+		t.Errorf("got %v, expected %v", got, want)
+	}
+
+}
