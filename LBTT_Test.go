@@ -45,7 +45,8 @@ func TestCalculatesFirstTaxBand(t *testing.T) {
 func TestCalculatesFirstTaxBandUpper(t *testing.T) {
 givenPrice := 249500
 
-	want := 1100
+	want := 2090
+
 	got, _ := CalculateLBTT(givenPrice)
 
 	if got != want {
