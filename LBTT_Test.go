@@ -41,3 +41,14 @@ func TestCalculatesFirstTaxBand(t *testing.T) {
 		t.Errorf("got %v, expected %v", got, want)
 	}
 }
+
+func TestCalculatesFirstTaxBandUpper(t *testing.T) {
+givenPrice := 249500
+
+	want := 1100
+	got, _ := CalculateLBTT(givenPrice)
+
+	if got != want {
+		t.Errorf("got %v, expected %v", got, want)
+	}
+}
