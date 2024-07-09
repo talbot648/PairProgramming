@@ -43,7 +43,7 @@ func TestCalculatesFirstTaxBand(t *testing.T) {
 }
 
 func TestCalculatesFirstTaxBandUpper(t *testing.T) {
-givenPrice := 249500
+		givenPrice := 24950
 
 	want := 2090
 
