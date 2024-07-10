@@ -27,6 +27,18 @@ func calculateSecondTaxBandTotal(housePrice int) int {
 	return totalTax
 }
 
+func CalculateThirdTaxBandTotal(housePrice int) int {
+	startOfTaxBand := 325000
+	taxRate := 10 //percent
+	totalTaxFromPreviousBands := 5850
+
+	totalToBeTaxed := housePrice - startOfTaxBand
+	totalCurrentBandTax := totalToBeTaxed * taxRate / 100
+	totalTax := totalCurrentBandTax + totalTaxFromPreviousBands
+	return totalTax
+
+}
+
 func main() {
 }
 
@@ -47,6 +59,10 @@ func CalculateLBTT(housePrice int) (int, error) {
 		totalTax := calculateSecondTaxBandTotal(housePrice)
 		return totalTax, nil
 	}
+	if isPriceInThirdTaxBand(housePrice) {
+		totalTax := CalculateThirdTaxBandTotal(housePrice)
+		return totalTax, nil
+	}
 
 	return 0, errors.New("")
 }
@@ -61,4 +77,8 @@ func isPriceInFirstTaxBand(housePrice int) bool {
 
 func isPriceInSecondTaxBand(housePrice int) bool {
 	return housePrice > 250000 && housePrice <= 325000
+}
+
+func isPriceInThirdTaxBand(housePrice int) bool {
+	return housePrice > 325000 && housePrice <= 750000
 }

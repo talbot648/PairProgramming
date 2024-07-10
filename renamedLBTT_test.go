@@ -65,3 +65,15 @@ func TestCalculatesSecondTaxBand(t *testing.T) {
 	}
 
 }
+
+func TestCalculateThirdTaxBand(t *testing.T) {
+	givenPrice := 360000
+
+	want := 9350
+
+	got, _ := CalculateLBTT(givenPrice)
+
+	if got != want {
+		t.Errorf("got %v, expected %v", got, want)
+	}
+}
