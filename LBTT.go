@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"fmt"
 )
 
 func calculateFirstTaxBandTotal(housePrice int) int {
@@ -10,7 +9,6 @@ func calculateFirstTaxBandTotal(housePrice int) int {
 	taxRate := 2 //percent
 
 	totalToBeTaxed := housePrice - startOfTaxBand
-	fmt.Println(totalToBeTaxed)
 	totalTax := totalToBeTaxed * taxRate / 100
 
 	return totalTax
@@ -24,10 +22,11 @@ func calculateSecondTaxBandTotal(housePrice int) int {
 	totalToBeTaxed := housePrice - startOfTaxBand
 	totalCurrentBandTax := totalToBeTaxed * taxRate / 100
 	totalTax := totalCurrentBandTax + taxFromPreviousTaxBand
+
 	return totalTax
 }
 
-func CalculateThirdTaxBandTotal(housePrice int) int {
+func calculateThirdTaxBandTotal(housePrice int) int {
 	startOfTaxBand := 325000
 	taxRate := 10 //percent
 	totalTaxFromPreviousBands := 5850
@@ -35,8 +34,21 @@ func CalculateThirdTaxBandTotal(housePrice int) int {
 	totalToBeTaxed := housePrice - startOfTaxBand
 	totalCurrentBandTax := totalToBeTaxed * taxRate / 100
 	totalTax := totalCurrentBandTax + totalTaxFromPreviousBands
+
 	return totalTax
 
+}
+
+func calculateHighestTaxBandTotal(housePrice int) int {
+	startOfTaxBand := 750000
+	taxRate := 12 //percent
+	totalTaxFromPreviousBands := 48350
+
+	totalToBeTaxed := housePrice - startOfTaxBand
+	totalCurrentBandTax := totalToBeTaxed * taxRate / 100
+	totalTax := totalCurrentBandTax + totalTaxFromPreviousBands
+
+	return totalTax
 }
 
 func main() {
@@ -60,7 +72,11 @@ func CalculateLBTT(housePrice int) (int, error) {
 		return totalTax, nil
 	}
 	if isPriceInThirdTaxBand(housePrice) {
-		totalTax := CalculateThirdTaxBandTotal(housePrice)
+		totalTax := calculateThirdTaxBandTotal(housePrice)
+		return totalTax, nil
+	}
+	if isPriceInHighestTaxBand(housePrice) {
+		totalTax := calculateHighestTaxBandTotal(housePrice)
 		return totalTax, nil
 	}
 
@@ -81,4 +97,8 @@ func isPriceInSecondTaxBand(housePrice int) bool {
 
 func isPriceInThirdTaxBand(housePrice int) bool {
 	return housePrice > 325000 && housePrice <= 750000
+}
+
+func isPriceInHighestTaxBand(housePrice int) bool {
+	return housePrice > 750000
 }
