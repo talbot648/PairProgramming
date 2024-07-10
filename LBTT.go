@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 )
 
 func calculateFirstTaxBandTotal(housePrice int) int {
@@ -9,8 +10,20 @@ func calculateFirstTaxBandTotal(housePrice int) int {
 	taxRate := 2 //percent
 
 	totalToBeTaxed := housePrice - startOfTaxBand
-	totalTax := totalToBeTaxed / 100 * taxRate
+	fmt.Println(totalToBeTaxed)
+	totalTax := totalToBeTaxed * taxRate / 100
 
+	return totalTax
+}
+
+func calculateSecondTaxBandTotal(housePrice int) int {
+	startOfTaxBand := 250000
+	taxRate := 5 //percent
+	taxFromPreviousTaxBand := 2100
+
+	totalToBeTaxed := housePrice - startOfTaxBand
+	totalCurrentBandTax := totalToBeTaxed * taxRate / 100
+	totalTax := totalCurrentBandTax + taxFromPreviousTaxBand
 	return totalTax
 }
 
@@ -30,6 +43,10 @@ func CalculateLBTT(housePrice int) (int, error) {
 		totalTax := calculateFirstTaxBandTotal(housePrice)
 		return totalTax, nil
 	}
+	if isPriceInSecondTaxBand(housePrice) {
+		totalTax := calculateSecondTaxBandTotal(housePrice)
+		return totalTax, nil
+	}
 
 	return 0, errors.New("")
 }
@@ -39,5 +56,9 @@ func isPriceValid(housePrice int) bool {
 }
 
 func isPriceInFirstTaxBand(housePrice int) bool {
-	return housePrice >= 145001 && housePrice <= 250000
+	return housePrice > 145000 && housePrice <= 250000
+}
+
+func isPriceInSecondTaxBand(housePrice int) bool {
+	return housePrice > 250000 && housePrice <= 325000
 }
