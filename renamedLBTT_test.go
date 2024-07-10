@@ -17,7 +17,7 @@ func TestReportsErrorWhenGivenInputBelowZero(t *testing.T) {
 }
 
 func TestCalculatesZeroTaxForBelowFirsTaxBand(t *testing.T) {
-	givenPrice := 145000
+	givenPrice := 100000
 
 	want := 0
 	got, gotErr := CalculateLBTT(givenPrice)
@@ -31,6 +31,19 @@ func TestCalculatesZeroTaxForBelowFirsTaxBand(t *testing.T) {
 
 }
 
+func TestCalculatesZeroTaxAtMaximumValueBelowFirstTaxBand(t *testing.T) {
+	givenPrice := 145000
+
+	want := 0
+	got, gotErr := CalculateLBTT(givenPrice)
+
+	if gotErr != nil {
+		t.Error("unexpected error:", gotErr)
+	}
+	if got != want {
+		t.Errorf("got %v, expected %v", got, want)
+	}
+}
 func TestCalculatesFirstTaxBand(t *testing.T) {
 	givenPrice := 200000
 
