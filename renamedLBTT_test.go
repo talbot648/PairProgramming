@@ -6,13 +6,24 @@ import (
 )
 
 func TestReportsErrorWhenGivenInputBelowZero(t *testing.T) {
-	givenPrice := -1
+	givenPrice := -50000
 
-	want := errors.New("invalid input: cannot have a house price below zero pounds")
+	want := errors.New("invalid input: cannot have a house price at zero pounds or below")
 	_, got := CalculateLBTT(givenPrice)
 
 	if got.Error() != want.Error() {
 		t.Error("expected error when given a house price below zero pounds")
+	}
+}
+
+func TestReportsErrorWhenGivenInputisZero(t *testing.T) {
+	givenPrice := 0
+
+	want := errors.New("invalid input: cannot have a house price at zero pounds or below")
+	_, got := CalculateLBTT(givenPrice)
+
+	if got.Error() != want.Error() {
+		t.Error("expected error when given a house price at zero pounds or below")
 	}
 }
 
