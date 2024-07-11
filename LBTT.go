@@ -11,7 +11,6 @@ type TaxInfo struct {
 }
 
 var taxInformation = []TaxInfo{
-	{startOfTaxBand: 0, taxRate: 0, totalTaxFromPreviousBands: 0},
 	{startOfTaxBand: 145000, taxRate: 2, totalTaxFromPreviousBands: 0},
 	{startOfTaxBand: 250000, taxRate: 5, totalTaxFromPreviousBands: 2100},
 	{startOfTaxBand: 325000, taxRate: 10, totalTaxFromPreviousBands: 5850},
@@ -23,6 +22,7 @@ func CalculateLBTT(housePrice int) (int, error) {
 	if !isPriceValid(housePrice) {
 		return 0, errors.New("invalid input: cannot have a house price at zero pounds or below")
 	}
+
 	if housePrice <= 145000 {
 		return totalTax, nil
 	}

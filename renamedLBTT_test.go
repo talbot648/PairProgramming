@@ -122,8 +122,8 @@ func TestAcceptanceTests(t *testing.T) {
 		expectedErr error
 	}{
 		{name: "Invalid House Price Below Zero", housePrice: -5, expected: 0, expectedErr: errors.New("invalid input: cannot have a house price at zero pounds or below")},
+		{name: "Invalid House Price at Zero", housePrice: 0, expected: 0, expectedErr: errors.New("invalid input: cannot have a house price at zero pounds or below")},
 	}
-
 	for _, test := range tests {
 
 		got, err := CalculateLBTT(test.housePrice)
