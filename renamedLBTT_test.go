@@ -6,7 +6,7 @@ import (
 )
 
 func TestReportsErrorWhenGivenInputBelowZero(t *testing.T) {
-	givenPrice := -50000
+	givenPrice := -50000.00
 
 	want := errors.New("invalid input: cannot have a house price at zero pounds or below")
 	_, got := CalculateLBTT(givenPrice)
@@ -17,7 +17,7 @@ func TestReportsErrorWhenGivenInputBelowZero(t *testing.T) {
 }
 
 func TestReportsErrorWhenGivenInputisZero(t *testing.T) {
-	givenPrice := 0
+	givenPrice := 0.00
 
 	want := errors.New("invalid input: cannot have a house price at zero pounds or below")
 	_, got := CalculateLBTT(givenPrice)
@@ -28,9 +28,9 @@ func TestReportsErrorWhenGivenInputisZero(t *testing.T) {
 }
 
 func TestCalculatesZeroTaxForBelowFirsTaxBand(t *testing.T) {
-	givenPrice := 100000
+	givenPrice := 100000.00
 
-	want := 0
+	want := 0.00
 	got, gotErr := CalculateLBTT(givenPrice)
 
 	if gotErr != nil {
@@ -43,9 +43,9 @@ func TestCalculatesZeroTaxForBelowFirsTaxBand(t *testing.T) {
 }
 
 func TestCalculatesZeroTaxAtMaximumValueBelowFirstTaxBand(t *testing.T) {
-	givenPrice := 145000
+	givenPrice := 145000.00
 
-	want := 0
+	want := 0.00
 	got, gotErr := CalculateLBTT(givenPrice)
 
 	if gotErr != nil {
@@ -56,9 +56,9 @@ func TestCalculatesZeroTaxAtMaximumValueBelowFirstTaxBand(t *testing.T) {
 	}
 }
 func TestCalculatesFirstTaxBand(t *testing.T) {
-	givenPrice := 200000
+	givenPrice := 200000.00
 
-	want := 1100
+	want := 1100.00
 	got, _ := CalculateLBTT(givenPrice)
 
 	if got != want {
@@ -67,9 +67,9 @@ func TestCalculatesFirstTaxBand(t *testing.T) {
 }
 
 func TestCalculatesFirstTaxBandUpperEdgeCase(t *testing.T) {
-	givenPrice := 250000
+	givenPrice := 250000.00
 
-	want := 2100
+	want := 2100.00
 
 	got, _ := CalculateLBTT(givenPrice)
 
@@ -79,9 +79,9 @@ func TestCalculatesFirstTaxBandUpperEdgeCase(t *testing.T) {
 }
 
 func TestCalculatesSecondTaxBand(t *testing.T) {
-	givenPrice := 310000
+	givenPrice := 310000.00
 
-	want := 5100
+	want := 5100.00
 	got, _ := CalculateLBTT(givenPrice)
 
 	if got != want {
@@ -91,9 +91,9 @@ func TestCalculatesSecondTaxBand(t *testing.T) {
 }
 
 func TestCalculateThirdTaxBand(t *testing.T) {
-	givenPrice := 360000
+	givenPrice := 360000.00
 
-	want := 9350
+	want := 9350.00
 
 	got, _ := CalculateLBTT(givenPrice)
 
@@ -103,9 +103,9 @@ func TestCalculateThirdTaxBand(t *testing.T) {
 }
 
 func TestCalculateHighestTaxBand(t *testing.T) {
-	givenPrice := 1400000
+	givenPrice := 1400000.00
 
-	want := 126350
+	want := 126350.00
 
 	got, _ := CalculateLBTT(givenPrice)
 
@@ -114,15 +114,26 @@ func TestCalculateHighestTaxBand(t *testing.T) {
 	}
 }
 
+func TestRoundNumberToTwoDecimalPlaces(t *testing.T) {
+	givenPrice := 768549.64
+	want := 50575.96
+
+	got, _ := CalculateLBTT(givenPrice)
+	if got != want {
+		t.Errorf("got %v, expected %v", got, want)
+	}
+}
+
 func TestAcceptanceTests(t *testing.T) {
 	tests := []struct {
 		name        string
-		housePrice  int
-		expected    int
+		housePrice  float64
+		expected    float64
 		expectedErr error
 	}{
-		{name: "Invalid House Price Below Zero", housePrice: -5, expected: 0, expectedErr: errors.New("invalid input: cannot have a house price at zero pounds or below")},
-		{name: "Invalid House Price at Zero", housePrice: 0, expected: 0, expectedErr: errors.New("invalid input: cannot have a house price at zero pounds or below")},
+		{name: "Invalid House Price Below Zero", housePrice: -5.00, expected: 0, expectedErr: errors.New("invalid input: cannot have a house price at zero pounds or below")},
+		{name: "Invalid House Price at Zero", housePrice: 0.00, expected: 0, expectedErr: errors.New("invalid input: cannot have a house price at zero pounds or below")},
+		{name: "Zero Tax below first tax band", housePrice: 110000.00, expected: 0, expectedErr: nil},
 	}
 	for _, test := range tests {
 

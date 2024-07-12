@@ -2,23 +2,24 @@ package main
 
 import (
 	"errors"
+	"math"
 )
 
 type TaxInfo struct {
-	startOfTaxBand            int
-	taxRate                   int
-	totalTaxFromPreviousBands int
+	startOfTaxBand            float64
+	taxRate                   float64
+	totalTaxFromPreviousBands float64
 }
 
 var taxInformation = []TaxInfo{
-	{startOfTaxBand: 145000, taxRate: 2, totalTaxFromPreviousBands: 0},
-	{startOfTaxBand: 250000, taxRate: 5, totalTaxFromPreviousBands: 2100},
-	{startOfTaxBand: 325000, taxRate: 10, totalTaxFromPreviousBands: 5850},
-	{startOfTaxBand: 750000, taxRate: 12, totalTaxFromPreviousBands: 48350},
+	{startOfTaxBand: 145000.00, taxRate: .02, totalTaxFromPreviousBands: 0.00},
+	{startOfTaxBand: 250000.00, taxRate: .05, totalTaxFromPreviousBands: 2100.00},
+	{startOfTaxBand: 325000.00, taxRate: .10, totalTaxFromPreviousBands: 5850.00},
+	{startOfTaxBand: 750000.00, taxRate: .12, totalTaxFromPreviousBands: 48350.00},
 }
 
-func CalculateLBTT(housePrice int) (int, error) {
-	var totalTax int
+func CalculateLBTT(housePrice float64) (float64, error) {
+	var totalTax float64
 	if !isPriceValid(housePrice) {
 		return 0, errors.New("invalid input: cannot have a house price at zero pounds or below")
 	}
@@ -26,7 +27,7 @@ func CalculateLBTT(housePrice int) (int, error) {
 	if housePrice <= 145000 {
 		return totalTax, nil
 	}
-	taxBand := getTaxBandIndex(housePrice)
+	taxBand := getTaxBand(housePrice)
 	return taxBand.calculateTax(housePrice), nil
 	/*
 		if isPriceInFirstTaxBand(housePrice) {
@@ -49,16 +50,15 @@ func CalculateLBTT(housePrice int) (int, error) {
 
 }
 
-func (t *TaxInfo) calculateTax(housePrice int) int {
+func (t *TaxInfo) calculateTax(housePrice float64) float64 {
 	totalToBeTaxed := housePrice - t.startOfTaxBand
 
-	totalCurrentBandTax := totalToBeTaxed * t.taxRate / 100
+	totalCurrentBandTax := totalToBeTaxed * t.taxRate
 	totalTax := totalCurrentBandTax + t.totalTaxFromPreviousBands
-
-	return totalTax
+	return math.Round(totalTax*100) / 100
 }
 
-func getTaxBandIndex(housePrice int) TaxInfo {
+func getTaxBand(housePrice float64) TaxInfo {
 	for i := len(taxInformation) - 1; i >= 0; i-- {
 		if housePrice > taxInformation[i].startOfTaxBand {
 			return taxInformation[i]
@@ -67,7 +67,7 @@ func getTaxBandIndex(housePrice int) TaxInfo {
 	return taxInformation[0]
 }
 
-func isPriceValid(housePrice int) bool {
+func isPriceValid(housePrice float64) bool {
 	return housePrice > 0
 }
 
