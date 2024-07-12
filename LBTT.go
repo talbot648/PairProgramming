@@ -19,13 +19,12 @@ var taxInformation = []TaxInfo{
 }
 
 func CalculateLBTT(housePrice float64) (float64, error) {
-	var totalTax float64
 	if !isPriceValid(housePrice) {
 		return 0, errors.New("invalid input: cannot have a house price at zero pounds or below")
 	}
 
 	if housePrice <= 145000 {
-		return totalTax, nil
+		return 0, nil
 	}
 	taxBand := getTaxBand(housePrice)
 	return taxBand.calculateTax(housePrice), nil
