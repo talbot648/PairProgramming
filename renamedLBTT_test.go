@@ -134,6 +134,14 @@ func TestAcceptanceTests(t *testing.T) {
 		{name: "Invalid House Price Below Zero", housePrice: -5.00, expected: 0, expectedErr: errors.New("invalid input: cannot have a house price at zero pounds or below")},
 		{name: "Invalid House Price at Zero", housePrice: 0.00, expected: 0, expectedErr: errors.New("invalid input: cannot have a house price at zero pounds or below")},
 		{name: "Zero Tax below first tax band", housePrice: 110000.00, expected: 0, expectedErr: nil},
+		{name: "First Tax Band", housePrice: 150000.00, expected: 100.00, expectedErr: nil},
+		{name: "Second Tax Band", housePrice: 300000.00, expected: 4600.00, expectedErr: nil},
+		{name: "Third Tax Band", housePrice: 400000.00, expected: 13350.00, expectedErr: nil},
+		{name: "Highest Tax Band", housePrice: 800000.00, expected: 54350.00, expectedErr: nil},
+		{name: "Edge Case at First Tax Band Start", housePrice: 145000.00, expected: 0, expectedErr: nil},
+		{name: "Edge Case at Second Tax Band Start", housePrice: 250000.00, expected: 2100.00, expectedErr: nil},
+		{name: "Edge Case at Third Tax Band Start", housePrice: 325000.00, expected: 5850.00, expectedErr: nil},
+		{name: "Edge Case at Highest Tax Band Start", housePrice: 750000.00, expected: 48350.00, expectedErr: nil},
 	}
 	for _, test := range tests {
 
