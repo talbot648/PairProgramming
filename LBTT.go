@@ -26,8 +26,8 @@ func CalculateLBTT(housePrice float64) (float64, error) {
 	if housePrice <= 145000 {
 		return 0, nil
 	}
-	taxBand := getTaxBand(housePrice)
-	return taxBand.calculateTax(housePrice), nil
+	taxInformation := getTaxInformation(housePrice)
+	return taxInformation.calculateTax(housePrice), nil
 	/*
 		if isPriceInFirstTaxBand(housePrice) {
 			totalTax := calculateFirstTaxBandTotal(housePrice)
@@ -57,7 +57,7 @@ func (t *TaxInfo) calculateTax(housePrice float64) float64 {
 	return math.Round(totalTax*100) / 100
 }
 
-func getTaxBand(housePrice float64) TaxInfo {
+func getTaxInformation(housePrice float64) TaxInfo {
 	for i := len(taxInformation) - 1; i >= 0; i-- {
 		if housePrice > taxInformation[i].startOfTaxBand {
 			return taxInformation[i]
