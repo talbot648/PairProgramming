@@ -55,7 +55,7 @@ func TestCalculatesZeroTaxAtMaximumValueBelowFirstTaxBand(t *testing.T) {
 		t.Errorf("got %v, expected %v", got, want)
 	}
 }
-func TestCalculatesFirstTaxBand(t *testing.T) {
+func TestCalculateTwoPercentTaxBand(t *testing.T) {
 	givenPrice := 200000.00
 
 	want := 1100.00
@@ -66,7 +66,7 @@ func TestCalculatesFirstTaxBand(t *testing.T) {
 	}
 }
 
-func TestCalculatesFirstTaxBandUpperEdgeCase(t *testing.T) {
+func TestCalculateTwoPercentTaxBandUpperEdgeCase(t *testing.T) {
 	givenPrice := 250000.00
 
 	want := 2100.00
@@ -78,7 +78,7 @@ func TestCalculatesFirstTaxBandUpperEdgeCase(t *testing.T) {
 	}
 }
 
-func TestCalculatesSecondTaxBand(t *testing.T) {
+func TestCalculateFivePercentTaxBand(t *testing.T) {
 	givenPrice := 310000.00
 
 	want := 5100.00
@@ -90,7 +90,7 @@ func TestCalculatesSecondTaxBand(t *testing.T) {
 
 }
 
-func TestCalculateThirdTaxBand(t *testing.T) {
+func TestCalculateTenPercentTaxBand(t *testing.T) {
 	givenPrice := 360000.00
 
 	want := 9350.00
@@ -102,10 +102,10 @@ func TestCalculateThirdTaxBand(t *testing.T) {
 	}
 }
 
-func TestCalculateHighestTaxBand(t *testing.T) {
-	givenPrice := 1400000.00
+func TestCalculateTwelvePercentTaxBand(t *testing.T) {
+	givenPrice := 900000.00
 
-	want := 126350.00
+	want := 66350.00
 
 	got, _ := CalculateLBTT(givenPrice)
 
@@ -114,11 +114,35 @@ func TestCalculateHighestTaxBand(t *testing.T) {
 	}
 }
 
+/*
 func TestRoundNumberToTwoDecimalPlaces(t *testing.T) {
 	givenPrice := 768549.64
 	want := 50575.96
 
 	got, _ := CalculateLBTT(givenPrice)
+	if got != want {
+		t.Errorf("got %v, expected %v", got, want)
+	}
+}
+*/
+
+func TestRoundTotalDownToNearestPound(t *testing.T) {
+	givenPrice := 850007.97
+	want := 60350.00
+
+	got, _ := CalculateLBTT(givenPrice)
+
+	if got != want {
+		t.Errorf("got %v, expected %v", got, want)
+	}
+}
+
+func TestCalculateTaxOverOneMillion(t *testing.T) {
+	givenPrice := 1500000.00
+	want := 153350.00
+
+	got, _ := CalculateLBTT(givenPrice)
+
 	if got != want {
 		t.Errorf("got %v, expected %v", got, want)
 	}
