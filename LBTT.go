@@ -6,18 +6,28 @@ import (
 )
 
 type TaxInfo struct {
-	startOfTaxBand            float64
-	taxRate                   float64
-	totalTaxFromPreviousBands float64
+	startOfTaxBand float64
+	endOfTaxBand   float64
+	taxRate        float64
 }
 
+/*
+	var taxInformation = []TaxInfo{
+		{startOfTaxBand: 1000000.00, taxRate: .15, totalTaxFromPreviousBands: 78350.00},
+		{startOfTaxBand: 750000.00, taxRate: .12, totalTaxFromPreviousBands: 48350.00},
+		{startOfTaxBand: 325000.00, taxRate: .10, totalTaxFromPreviousBands: 5850.00},
+		{startOfTaxBand: 250000.00, taxRate: .05, totalTaxFromPreviousBands: 2100.00},
+		{startOfTaxBand: 145000.00, taxRate: .02, totalTaxFromPreviousBands: 0.00},
+		{startOfTaxBand: 0, endOfTaxBand: 145000.00, taxRate: .00, totalTaxFromPreviousBands: 0.00},
+	}
+*/
 var taxInformation = []TaxInfo{
-	{startOfTaxBand: 1000000.00, taxRate: .15, totalTaxFromPreviousBands: 78350.00},
-	{startOfTaxBand: 750000.00, taxRate: .12, totalTaxFromPreviousBands: 48350.00},
-	{startOfTaxBand: 325000.00, taxRate: .10, totalTaxFromPreviousBands: 5850.00},
-	{startOfTaxBand: 250000.00, taxRate: .05, totalTaxFromPreviousBands: 2100.00},
-	{startOfTaxBand: 145000.00, taxRate: .02, totalTaxFromPreviousBands: 0.00},
-	{startOfTaxBand: 0, taxRate: .00, totalTaxFromPreviousBands: 0.00},
+	{startOfTaxBand: 1000000.00, endOfTaxBand: math.Inf(1), taxRate: .15},
+	{startOfTaxBand: 750000.00, endOfTaxBand: 1000000.00, taxRate: .12},
+	{startOfTaxBand: 325000.00, endOfTaxBand: 750000.00, taxRate: .10},
+	{startOfTaxBand: 250000.00, endOfTaxBand: 325000.00, taxRate: .05},
+	{startOfTaxBand: 145000.00, endOfTaxBand: 250000.00, taxRate: .02},
+	{startOfTaxBand: 0, endOfTaxBand: 145000.00, taxRate: .00},
 }
 
 func CalculateLBTT(housePrice float64) (float64, error) {
@@ -34,8 +44,21 @@ func (t *TaxInfo) calculateTax(housePrice float64) float64 {
 	totalToBeTaxed := housePrice - t.startOfTaxBand
 
 	totalCurrentBandTax := totalToBeTaxed * t.taxRate
-	totalTax := totalCurrentBandTax + t.totalTaxFromPreviousBands
+	totalTax := totalCurrentBandTax + getTaxFromPreviousBands(t.startOfTaxBand)
 	return math.Floor(totalTax)
+}
+
+func getTaxFromPreviousBands(givenStartOfTaxBand float64) float64 {
+	var totalTaxFromPreviousBands float64
+
+	for _, band := range taxInformation {
+		if band.endOfTaxBand <= givenStartOfTaxBand {
+			taxableAmount := band.endOfTaxBand - band.startOfTaxBand
+			bandTax := taxableAmount * band.taxRate
+			totalTaxFromPreviousBands += bandTax
+		}
+	}
+	return totalTaxFromPreviousBands
 }
 
 func getTaxBand(housePrice float64) TaxInfo {
@@ -46,14 +69,7 @@ func getTaxBand(housePrice float64) TaxInfo {
 		}
 	}
 	panic("couldn't find a tax band")
-	/*
-		for i := len(taxInformation) - 1; i >= 0; i-- {
-			if housePrice > taxInformation[i].startOfTaxBand {
-				return taxInformation[i]
-			}
-		}
-		return taxInformation[0]
-	*/
+
 }
 
 func isPriceValid(housePrice float64) bool {

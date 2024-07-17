@@ -148,6 +148,18 @@ func TestCalculateTaxOverOneMillion(t *testing.T) {
 	}
 }
 
+func TestCalculateTaxFromPreviousBand(t *testing.T) {
+	givenPrice := 1500000.00
+
+	want := 78350.00
+
+	got := getTaxFromPreviousBands(givenPrice)
+
+	if got != want {
+		t.Errorf("got %v, expected %v", got, want)
+	}
+}
+
 func TestAcceptanceTests(t *testing.T) {
 	tests := []struct {
 		name        string
