@@ -11,16 +11,6 @@ type TaxInfo struct {
 	taxRate        float64
 }
 
-/*
-	var taxInformation = []TaxInfo{
-		{startOfTaxBand: 1000000.00, taxRate: .15, totalTaxFromPreviousBands: 78350.00},
-		{startOfTaxBand: 750000.00, taxRate: .12, totalTaxFromPreviousBands: 48350.00},
-		{startOfTaxBand: 325000.00, taxRate: .10, totalTaxFromPreviousBands: 5850.00},
-		{startOfTaxBand: 250000.00, taxRate: .05, totalTaxFromPreviousBands: 2100.00},
-		{startOfTaxBand: 145000.00, taxRate: .02, totalTaxFromPreviousBands: 0.00},
-		{startOfTaxBand: 0, endOfTaxBand: 145000.00, taxRate: .00, totalTaxFromPreviousBands: 0.00},
-	}
-*/
 var taxInformation = []TaxInfo{
 	{startOfTaxBand: 1000000.00, endOfTaxBand: math.Inf(1), taxRate: .15},
 	{startOfTaxBand: 750000.00, endOfTaxBand: 1000000.00, taxRate: .12},
